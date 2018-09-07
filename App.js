@@ -1,21 +1,26 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+
+import Navbar from './src/components/Navbar'
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#eb82a8'
+  }
+}
 
 export default class App extends React.Component {
   render () {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <PaperProvider theme={theme}>
+        <Navbar
+          title='Top 20 Cryptocurrencies'
+          color='white'
+          icon='filter-list'
+        />
+      </PaperProvider>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
