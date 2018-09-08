@@ -1,3 +1,4 @@
 node_modules/**/*
 .expo/*
 npm-debug.*
+__tests__/__snapshots__/

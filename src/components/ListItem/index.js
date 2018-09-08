@@ -2,76 +2,44 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { List as PaperList } from 'react-native-paper'
 
-const renderIcon = title => {
+const getCurrencyCode = title => {
   switch (title) {
     case 'Bitcoin':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/btc.png')}
-        />
-      )
+      return 'BTC'
     case 'Ethereum':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/eth.png')}
-        />
-      )
+      return 'ETH'
     case 'XRP':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/xrp.png')}
-        />
-      )
+      return 'XRP'
     case 'Bitcoin Cash':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/bch.png')}
-        />
-      )
+      return 'BCH'
     case 'EOS':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/eos.png')}
-        />
-      )
+      return 'EOS'
     case 'Stellar':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/xlm.png')}
-        />
-      )
+      return 'XLM'
     case 'Litecoin':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/ltc.png')}
-        />
-      )
+      return 'LTC'
     case 'Tether':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/usdt.png')}
-        />
-      )
+      return 'USDT'
     case 'Cardano':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/ada.png')}
-        />
-      )
+      return 'ADA'
     case 'Monero':
-      return (
-        <PaperList.Icon
-          icon={require('./../../../assets/icons/32@2x/xmr.png')}
-        />
-      )
+      return 'XMR'
   }
 }
 
 const ListItem = ({ ranking, title }) => {
+  const code = getCurrencyCode(title)
+
   return (
     <PaperList.Item
       title={`${ranking}. ${title}`}
-      left={() => renderIcon(title)}
+      left={() => (
+        <PaperList.Icon
+          icon={{
+            uri: `https://rawgit.com/bntzio/HigiaCoin/master/assets/icons/32%402x/${code.toLowerCase()}.png`
+          }}
+        />
+      )}
     />
   )
 }
