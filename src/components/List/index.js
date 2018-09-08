@@ -17,7 +17,7 @@ const List = ({ cryptocurrencies }) => (
 )
 
 List.propTypes = {
-  cryptocurrencies: PropTypes.arrayOf(PropTypes.object)
+  cryptocurrencies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 }
 
 export default List
