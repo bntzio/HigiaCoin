@@ -5,10 +5,9 @@ import { ScrollView } from 'react-native'
 import ListItem from './../ListItem'
 
 const renderItems = cryptocurrencies => {
-  return cryptocurrencies.map(cryptocurrency => {
-    const { id, name } = cryptocurrency
-
-    return <ListItem key={id} ranking={id} title={name} />
+  return cryptocurrencies.map((cryptocurrency, i) => {
+    const { id, name, symbol } = cryptocurrency
+    return <ListItem key={id} ranking={++i} title={name} symbol={symbol} />
   })
 }
 

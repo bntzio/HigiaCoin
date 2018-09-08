@@ -21,7 +21,7 @@ describe('ListItem', () => {
   it('renders correctly', () => {
     const wrapper = (
       <PaperProvider theme={theme}>
-        <ListItem ranking={1} title={'Bitcoin'} />
+        <ListItem ranking={1} title={'Bitcoin'} symbol={'BTC'} />
       </PaperProvider>
     )
     const tree = renderer.create(wrapper).toJSON()
@@ -32,11 +32,14 @@ describe('ListItem', () => {
     const icon = (
       <PaperList.Icon
         icon={{
-          uri: `https://rawgit.com/bntzio/HigiaCoin/master/assets/icons/32%402x/btc.png`
+          uri:
+            'https://rawgit.com/bntzio/HigiaCoin/master/assets/icons/32%402x/btc.png'
         }}
       />
     )
-    const wrapper = shallow(<ListItem ranking={1} title={'Bitcoin'} />)
+    const wrapper = shallow(
+      <ListItem ranking={1} title={'Bitcoin'} symbol={'BTC'} />
+    )
     expect(
       wrapper
         .find(PaperList.Item)

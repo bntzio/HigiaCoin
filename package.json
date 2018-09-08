@@ -7,17 +7,21 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "jest --silent"
+    "test": "jest --verbose",
+    "devtools": "yarn run ios && react-devtools"
   },
   "jest": {
     "preset": "react-native",
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+    "automock": false,
     "setupFiles": [
-      "enzyme-react-16-adapter-setup"
+      "enzyme-react-16-adapter-setup",
+      "./setupJest"
     ]
   },
   "dependencies": {
     "expo": "^29.0.0",
+    "lodash": "^4.17.10",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
     "react-native-paper": "^2.0.1",
@@ -39,6 +43,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^23.5.0",
     "jest-enzyme": "^6.0.4",
+    "jest-fetch-mock": "^1.6.5",
+    "react-devtools": "^3.3.4",
     "react-dom": "^16.5.0",
     "react-test-renderer": "^16.5.0"
   }
