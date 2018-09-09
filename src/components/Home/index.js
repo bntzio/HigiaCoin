@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import _ from 'lodash'
 
@@ -19,7 +20,8 @@ class Home extends React.Component {
       <PaperProvider theme={theme}>
         <Navbar
           title='Top Cryptocurrencies'
-          subtitle='By Market Cap'
+          subtitle={`By ${navigation.getParam('selectedFilter') ||
+            'Market Cap'}`}
           color='black'
           icon='filter-list'
           navigation={navigation}
@@ -32,7 +34,19 @@ class Home extends React.Component {
     super(props)
 
     this.state = {
-      cryptocurrencies: []
+      cryptocurrencies: [],
+      activeFilter: 'Market Cap'
+    }
+  }
+
+  handleSelectFilter (activeFilter) {
+    this.setState({ activeFilter })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { navigation } = nextProps
+    if (navigation.getParam('selectedFilter')) {
+      this.handleSelectFilter(navigation.getParam('selectedFilter'))
     }
   }
 
@@ -69,6 +83,10 @@ class Home extends React.Component {
       </PaperProvider>
     )
   }
+}
+
+Home.propTypes = {
+  navigation: PropTypes.object
 }
 
 export default Home

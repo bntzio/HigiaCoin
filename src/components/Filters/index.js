@@ -17,17 +17,12 @@ class Filters extends React.Component {
     header: null
   }
 
-  state = {
-    active: undefined
-  }
-
-  goBack () {
-    this.props.navigation.goBack()
+  onFilterItems (filter) {
+    const { navigation } = this.props
+    navigation.navigate('Home', { selectedFilter: filter })
   }
 
   render () {
-    const { active } = this.state
-
     return (
       <View style={{ height: '100%', backgroundColor: 'white' }}>
         <Drawer.Section
@@ -37,27 +32,15 @@ class Filters extends React.Component {
         >
           <Drawer.Item
             label='Market Cap'
-            active={active === 'first'}
-            onPress={() => {
-              this.setState({ active: 'first' })
-              this.goBack()
-            }}
+            onPress={() => this.onFilterItems('Market Cap')}
           />
           <Drawer.Item
             label='Price'
-            active={active === 'second'}
-            onPress={() => {
-              this.setState({ active: 'second' })
-              this.goBack()
-            }}
+            onPress={() => this.onFilterItems('Price')}
           />
           <Drawer.Item
             label='Volume (24H)'
-            active={active === 'third'}
-            onPress={() => {
-              this.setState({ active: 'third' })
-              this.goBack()
-            }}
+            onPress={() => this.onFilterItems('Volume')}
           />
         </Drawer.Section>
       </View>
