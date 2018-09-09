@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ScrollView } from 'react-native'
+import { List as PaperList } from 'react-native-paper'
 
 import ListItem from './../ListItem'
 
@@ -12,7 +13,9 @@ const renderItems = cryptocurrencies => {
 }
 
 const List = ({ cryptocurrencies }) => (
-  <ScrollView>{renderItems(cryptocurrencies)}</ScrollView>
+  <ScrollView style={{ marginTop: '20%', backgroundColor: 'white' }}>
+    <PaperList.Section>{renderItems(cryptocurrencies)}</PaperList.Section>
+  </ScrollView>
 )
 
 List.propTypes = {
