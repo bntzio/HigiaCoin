@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withNavigation } from 'react-navigation'
 import { DefaultTheme, Drawer, Checkbox, Switch } from 'react-native-paper'
 import { View, Text, Linking } from 'react-native'
 
@@ -42,7 +43,12 @@ class Filters extends React.Component {
   }
 
   render () {
-    const { activeFilter, toggleDarkMode, darkModeEnabled } = this.props
+    const {
+      activeFilter,
+      toggleDarkMode,
+      darkModeEnabled,
+      navigation
+    } = this.props
 
     return (
       <View
@@ -151,6 +157,21 @@ class Filters extends React.Component {
               onPress={() => this.openRepositoryWebsite()}
             />
           </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingLeft: 8,
+              marginBottom: 10
+            }}
+          >
+            <Drawer.Item
+              label='About HigiaCoin'
+              style={{ marginLeft: 0, flex: 1 }}
+              onPress={() => navigation.navigate('About')}
+            />
+          </View>
         </Drawer.Section>
       </View>
     )
@@ -178,4 +199,4 @@ export default connect(
     selectFilter,
     toggleDarkMode
   }
-)(Filters)
+)(withNavigation(Filters))
