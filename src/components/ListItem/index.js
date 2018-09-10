@@ -1,11 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withNavigation } from 'react-navigation'
 import { List as PaperList, TouchableRipple } from 'react-native-paper'
 
-const ListItem = ({ ranking, title, symbol }) => {
+const ListItem = ({
+  navigation,
+  ranking,
+  title,
+  symbol,
+  price,
+  volume,
+  marketCap,
+  circulatingSupply,
+  maxSupply
+}) => {
   return (
     <TouchableRipple
-      onPress={() => console.log('Pressed')}
+      onPress={() => {
+        navigation.navigate('Detail', {
+          info: {
+            title,
+            symbol,
+            price,
+            volume,
+            marketCap,
+            circulatingSupply,
+            maxSupply
+          }
+        })
+      }}
       rippleColor='rgba(0, 0, 0, .10)'
     >
       <PaperList.Item
@@ -23,9 +46,15 @@ const ListItem = ({ ranking, title, symbol }) => {
 }
 
 ListItem.propTypes = {
+  navigation: PropTypes.object,
   ranking: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  symbol: PropTypes.string.isRequired
+  symbol: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  volume: PropTypes.number,
+  marketCap: PropTypes.number,
+  circulatingSupply: PropTypes.number,
+  maxSupply: PropTypes.number
 }
 
-export default ListItem
+export default withNavigation(ListItem)

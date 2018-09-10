@@ -20,16 +20,13 @@ const theme = {
 class Home extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     header: (
-      <PaperProvider theme={theme}>
-        <Navbar
-          title='Top Cryptocurrencies'
-          subtitle={`By ${navigation.getParam('selectedFilter') ||
-            'Market Cap'}`}
-          color='black'
-          icon='filter-list'
-          navigation={navigation}
-        />
-      </PaperProvider>
+      <Navbar
+        title='Top Cryptocurrencies'
+        subtitle={`By ${navigation.getParam('selectedFilter') || 'Market Cap'}`}
+        color='black'
+        icon='filter-list'
+        navigation={navigation}
+      />
     )
   })
 

@@ -8,8 +8,29 @@ import ListItem from './../ListItem'
 const renderItems = cryptocurrencies => {
   if (cryptocurrencies.length > 0) {
     return cryptocurrencies.map((cryptocurrency, i) => {
-      const { id, name, symbol } = cryptocurrency
-      return <ListItem key={id} ranking={++i} title={name} symbol={symbol} />
+      /* eslint-disable-next-line */
+      const { price, volume_24h, market_cap } = cryptocurrency.quotes['USD']
+      const {
+        id,
+        name,
+        symbol,
+        circulating_supply /* eslint-disable-line */,
+        max_supply /* eslint-disable-line */
+      } = cryptocurrency
+
+      return (
+        <ListItem
+          key={id}
+          ranking={++i}
+          title={name}
+          symbol={symbol}
+          price={price}
+          volume={volume_24h} /* eslint-disable-line */
+          marketCap={market_cap} /* eslint-disable-line */
+          circulatingSupply={circulating_supply} /* eslint-disable-line */
+          maxSupply={max_supply} /* eslint-disable-line */
+        />
+      )
     })
   }
 }
