@@ -1,0 +1,2 @@
+export const SELECT_FILTER = 'SELECT_FILTER'
+export const SHOW_CRYPTOS = 'SHOW_CRYPTOS'

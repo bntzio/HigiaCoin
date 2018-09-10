@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import _ from 'lodash'
 
 import Navbar from './../Navbar'
 import List from './../List'
+
+import { renderCryptos } from './../../actions/CryptosActions'
 
 const theme = {
   ...DefaultTheme,
@@ -30,44 +33,21 @@ class Home extends React.Component {
     )
   })
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      cryptocurrencies: [],
-      activeFilter: 'Market Cap'
-    }
-  }
-
-  handleSelectFilter (activeFilter) {
-    this.setState({ activeFilter })
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const { navigation } = nextProps
-    if (navigation.getParam('selectedFilter')) {
-      this.handleSelectFilter(navigation.getParam('selectedFilter'))
-    }
-  }
-
   componentDidUpdate (prevProps) {
-    const { navigation } = this.props
-    const { getParam } = prevProps.navigation
+    const { activeFilter, renderCryptos } = this.props
 
-    if (getParam('selectedFilter') !== navigation.getParam('selectedFilter')) {
-      const { activeFilter } = this.state
-
+    if (prevProps.activeFilter !== activeFilter) {
       return this.fetchAndSortCryptos(activeFilter)
-        .then(cryptocurrencies => this.setState({ cryptocurrencies }))
+        .then(cryptocurrencies => renderCryptos({ cryptocurrencies }))
         .catch(e => alert(e))
     }
   }
 
   componentDidMount () {
-    const { activeFilter } = this.state
+    const { activeFilter, renderCryptos } = this.props
 
     return this.fetchAndSortCryptos(activeFilter)
-      .then(cryptocurrencies => this.setState({ cryptocurrencies }))
+      .then(cryptocurrencies => renderCryptos({ cryptocurrencies }))
       .catch(e => alert(e))
   }
 
@@ -107,7 +87,7 @@ class Home extends React.Component {
   }
 
   render () {
-    const { cryptocurrencies } = this.state
+    const { cryptocurrencies } = this.props
 
     return (
       <PaperProvider theme={theme}>
@@ -118,7 +98,21 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  navigation: PropTypes.object
+  cryptocurrencies: PropTypes.array,
+  activeFilter: PropTypes.string,
+  renderCryptos: PropTypes.func
 }
 
-export default Home
+const mapStateToProps = state => {
+  const { activeFilter } = state.filters
+  const { cryptocurrencies } = state.cryptos
+
+  return { cryptocurrencies, activeFilter }
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    renderCryptos
+  }
+)(Home)

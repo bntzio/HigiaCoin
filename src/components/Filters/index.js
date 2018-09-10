@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { connect } from 'react-redux'
 import { DefaultTheme, Drawer } from 'react-native-paper'
 import { View } from 'react-native'
+
+import { selectFilter } from './../../actions/FiltersActions'
 
 const drawerTheme = {
   ...DefaultTheme,
@@ -18,7 +20,8 @@ class Filters extends React.Component {
   }
 
   onFilterItems (filter) {
-    const { navigation } = this.props
+    const { navigation, selectFilter } = this.props
+    selectFilter(filter)
     navigation.navigate('Home', { selectedFilter: filter })
   }
 
@@ -49,7 +52,13 @@ class Filters extends React.Component {
 }
 
 Filters.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  selectFilter: PropTypes.func
 }
 
-export default Filters
+export default connect(
+  null,
+  {
+    selectFilter
+  }
+)(Filters)
