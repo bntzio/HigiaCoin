@@ -33,15 +33,34 @@ class Detail extends React.Component {
 
     return (
       <View style={{ padding: '8%', paddingTop: '8%' }}>
-        <Text>{`Title: ${title}`}</Text>
-        <Text>{`Symbol: ${symbol}`}</Text>
-        <Text>{`Market Cap: ${marketCap || 'Not Available'}`}</Text>
-        <Text>{`Price: ${price}`}</Text>
-        <Text>{`Volume (24H): ${volume || 'Not Available'}`}</Text>
-        <Text>
-          {`Circulating Supply: ${circulatingSupply || 'Not Available'}`}
+        <Text style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: '500' }}>Currency: </Text>
+          {title}
         </Text>
-        <Text>{`Max Supply: ${maxSupply || 'Not Available'}`}</Text>
+        <Text style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: '500' }}>Symbol: </Text>
+          {symbol}
+        </Text>
+        <Text style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: '500' }}>Market Cap: </Text>
+          {`$${marketCap}`}
+        </Text>
+        <Text style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: '500' }}>Price: </Text>
+          {`$${price}`}
+        </Text>
+        <Text style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: '500' }}>Volume (24H): </Text>
+          {`$${volume || 'Not Available'}`}
+        </Text>
+        <Text style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: '500' }}>Circulating Supply: </Text>
+          {circulatingSupply || 'Not Available'}
+        </Text>
+        <Text style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: '500' }}>Max Supply: </Text>
+          {maxSupply || 'Not Available'}
+        </Text>
       </View>
     )
   }
