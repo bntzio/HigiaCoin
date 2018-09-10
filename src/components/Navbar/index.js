@@ -14,7 +14,7 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#fff'
+    primary: '#000'
   }
 }
 
@@ -42,7 +42,7 @@ const Navbar = props => {
             }}
           >
             <Appbar.BackAction
-              color='black'
+              color='white'
               onPress={() => navigation.goBack()}
             />
             <Text style={{ fontWeight: '500' }}>Back</Text>
@@ -50,7 +50,7 @@ const Navbar = props => {
         ) : null}
         {backOnlyIcon ? (
           <Appbar.BackAction
-            color='black'
+            color='white'
             onPress={() => navigation.goBack()}
           />
         ) : null}

@@ -32,8 +32,8 @@ class Home extends React.Component {
       <Navbar
         title='Top Cryptocurrencies'
         subtitle={`By ${navigation.getParam('selectedFilter') || 'Market Cap'}`}
-        color='black'
-        icon='filter-list'
+        color='white'
+        icon='menu'
         navigation={navigation}
       />
     )

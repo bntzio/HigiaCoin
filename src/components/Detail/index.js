@@ -10,7 +10,7 @@ class Detail extends React.Component {
     header: (
       <Navbar
         title={`${navigation.getParam('info').title}`}
-        color='black'
+        color='white'
         backOnlyIcon
         navigation={navigation}
       />
