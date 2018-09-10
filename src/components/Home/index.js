@@ -16,7 +16,11 @@ import _ from 'lodash'
 import Navbar from './../Navbar'
 import List from './../List'
 
-import { renderCryptos, hideCryptoModal } from './../../actions/CryptosActions'
+import {
+  renderCryptos,
+  hideCryptoModal,
+  cryptosAreLoading
+} from './../../actions/CryptosActions'
 
 const theme = {
   ...DefaultTheme,
@@ -40,20 +44,27 @@ class Home extends React.Component {
   })
 
   componentDidUpdate (prevProps) {
-    const { activeFilter, renderCryptos } = this.props
+    const { activeFilter, renderCryptos, cryptosAreLoading } = this.props
 
     if (prevProps.activeFilter !== activeFilter) {
+      cryptosAreLoading(true)
       return this.fetchAndSortCryptos(activeFilter)
-        .then(cryptocurrencies => renderCryptos({ cryptocurrencies }))
+        .then(cryptocurrencies => {
+          cryptosAreLoading(false)
+          renderCryptos({ cryptocurrencies })
+        })
         .catch(e => alert(e))
     }
   }
 
   componentDidMount () {
-    const { activeFilter, renderCryptos } = this.props
+    const { activeFilter, renderCryptos, cryptosAreLoading } = this.props
 
     return this.fetchAndSortCryptos(activeFilter)
-      .then(cryptocurrencies => renderCryptos({ cryptocurrencies }))
+      .then(cryptocurrencies => {
+        cryptosAreLoading(false)
+        renderCryptos({ cryptocurrencies })
+      })
       .catch(e => alert(e))
   }
 
@@ -116,18 +127,15 @@ class Home extends React.Component {
             })`}</Title>
             <View style={styles.paragraphsContainer}>
               <Paragraph style={styles.paragraph}>
-                <Text style={styles.paragraphTitle}>Market Cap:</Text>
-                {' '}
+                <Text style={styles.paragraphTitle}>Market Cap:</Text>{' '}
                 {info.marketCap || 'Not Available'}
               </Paragraph>
               <Paragraph style={styles.paragraph}>
-                <Text style={styles.paragraphTitle}>Price:</Text>
-                {' '}
+                <Text style={styles.paragraphTitle}>Price:</Text>{' '}
                 {info.price || 'Not Available'}
               </Paragraph>
               <Paragraph style={styles.paragraph}>
-                <Text style={styles.paragraphTitle}>Volume (24H):</Text>
-                {' '}
+                <Text style={styles.paragraphTitle}>Volume (24H):</Text>{' '}
                 {info.volume || 'Not Available'}
               </Paragraph>
             </View>
@@ -217,7 +225,8 @@ Home.propTypes = {
   modalOpen: PropTypes.bool,
   modalInfo: PropTypes.object,
   hideCryptoModal: PropTypes.func,
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  cryptosAreLoading: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -231,6 +240,7 @@ export default connect(
   mapStateToProps,
   {
     renderCryptos,
-    hideCryptoModal
+    hideCryptoModal,
+    cryptosAreLoading
   }
 )(withNavigation(Home))

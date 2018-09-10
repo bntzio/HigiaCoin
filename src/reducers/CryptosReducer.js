@@ -1,7 +1,13 @@
-import { SHOW_CRYPTOS, SHOW_MODAL, HIDE_MODAL } from './../actions/types'
+import {
+  SHOW_CRYPTOS,
+  LOADING_CRYPTOS,
+  SHOW_MODAL,
+  HIDE_MODAL
+} from './../actions/types'
 
 const INITIAL_STATE = {
-  cryptocurrencies: []
+  cryptocurrencies: [],
+  loading: true
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -19,6 +25,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         modalOpen: false,
         modalInfo: null
+      }
+    case LOADING_CRYPTOS:
+      return {
+        ...state,
+        loading: action.loading
       }
     default:
       return state

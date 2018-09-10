@@ -1,3 +1,4 @@
+export const LOADING_CRYPTOS = 'LOADING_CRYPTOS'
 export const SELECT_FILTER = 'SELECT_FILTER'
 export const SHOW_CRYPTOS = 'SHOW_CRYPTOS'
 export const SHOW_MODAL = 'SHOW_MODAL'

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ScrollView } from 'react-native'
+import { connect } from 'react-redux'
+import { View, ScrollView, ActivityIndicator } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 
 import ListItem from './../ListItem'
@@ -35,14 +36,30 @@ const renderItems = cryptocurrencies => {
   }
 }
 
-const List = ({ cryptocurrencies }) => (
+const List = ({ cryptocurrencies, loading }) => (
   <ScrollView style={{ marginTop: '20%', backgroundColor: 'white' }}>
-    <PaperList.Section>{renderItems(cryptocurrencies)}</PaperList.Section>
+    {loading ? (
+      <View style={{ marginTop: '50%' }}>
+        <ActivityIndicator size='large' color='#000' />
+      </View>
+    ) : (
+      <PaperList.Section>{renderItems(cryptocurrencies)}</PaperList.Section>
+    )}
   </ScrollView>
 )
 
 List.propTypes = {
-  cryptocurrencies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  cryptocurrencies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  loading: PropTypes.bool
 }
 
-export default List
+const mapStateToProps = state => {
+  const { loading } = state.cryptos
+
+  return { loading }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(List)
