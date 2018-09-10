@@ -1,7 +1,9 @@
 import { SELECT_FILTER } from './../actions/types'
 
 const INITIAL_STATE = {
-  activeFilter: 'Market Cap'
+  activeFilter: 'Market Cap',
+  modalOpen: false,
+  modalInfo: null
 }
 
 export default (state = INITIAL_STATE, action) => {

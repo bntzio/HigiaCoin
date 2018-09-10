@@ -1,13 +1,22 @@
 import React from 'react'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+import { withNavigation } from 'react-navigation'
+import {
+  DefaultTheme,
+  Provider as PaperProvider,
+  Button,
+  Card,
+  Title,
+  Paragraph
+} from 'react-native-paper'
 import _ from 'lodash'
 
 import Navbar from './../Navbar'
 import List from './../List'
 
-import { renderCryptos } from './../../actions/CryptosActions'
+import { renderCryptos, hideCryptoModal } from './../../actions/CryptosActions'
 
 const theme = {
   ...DefaultTheme,
@@ -83,33 +92,145 @@ class Home extends React.Component {
     }
   }
 
+  goToDetailScreen (info) {
+    this.props.navigation.navigate('Detail', { info })
+    this.props.hideCryptoModal()
+  }
+
+  renderModal (info) {
+    return (
+      <TouchableOpacity
+        style={styles.outerModal}
+        onPress={() => this.props.hideCryptoModal()}
+      >
+        <Card style={styles.innerModal} elevation={2} onPress={i => i}>
+          <Card.Content>
+            <Image
+              style={styles.icon}
+              source={{
+                uri: `https://rawgit.com/bntzio/HigiaCoin/master/assets/icons/32%402x/${info.symbol.toLowerCase()}.png`
+              }}
+            />
+            <Title style={styles.title}>{`${info.title} (${
+              info.symbol
+            })`}</Title>
+            <View style={styles.paragraphsContainer}>
+              <Paragraph style={styles.paragraph}>
+                <Text style={styles.paragraphTitle}>Market Cap:</Text>
+                {' '}
+                {info.marketCap || 'Not Available'}
+              </Paragraph>
+              <Paragraph style={styles.paragraph}>
+                <Text style={styles.paragraphTitle}>Price:</Text>
+                {' '}
+                {info.price || 'Not Available'}
+              </Paragraph>
+              <Paragraph style={styles.paragraph}>
+                <Text style={styles.paragraphTitle}>Volume (24H):</Text>
+                {' '}
+                {info.volume || 'Not Available'}
+              </Paragraph>
+            </View>
+          </Card.Content>
+          <Card.Actions style={styles.buttonContainer}>
+            <Button
+              mode='contained'
+              dark
+              color='black'
+              onPress={() => this.goToDetailScreen(info)}
+              style={styles.button}
+            >
+              MORE STATS
+            </Button>
+          </Card.Actions>
+        </Card>
+      </TouchableOpacity>
+    )
+  }
+
   render () {
-    const { cryptocurrencies } = this.props
+    const { cryptocurrencies, modalOpen, modalInfo } = this.props
 
     return (
       <PaperProvider theme={theme}>
         <List cryptocurrencies={cryptocurrencies} />
+        {modalOpen ? this.renderModal(modalInfo) : null}
       </PaperProvider>
     )
+  }
+}
+
+const styles = {
+  outerModal: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, .20)',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  },
+  innerModal: {
+    position: 'absolute',
+    borderRadius: 2,
+    backgroundColor: 'white',
+    top: '25%',
+    right: '10%',
+    left: '10%',
+    height: '50%'
+  },
+  icon: {
+    alignSelf: 'center',
+    width: 50,
+    height: 50,
+    marginTop: 15
+  },
+  title: {
+    alignSelf: 'center',
+    marginTop: 15,
+    marginBottom: 15
+  },
+  paragraphsContainer: {
+    padding: 20,
+    paddingTop: 10,
+    paddingBottom: 15
+  },
+  paragraph: {
+    fontSize: 16
+  },
+  paragraphTitle: {
+    fontWeight: '500'
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 0
+  },
+  button: {
+    flex: 1,
+    borderRadius: 2
   }
 }
 
 Home.propTypes = {
   cryptocurrencies: PropTypes.array,
   activeFilter: PropTypes.string,
-  renderCryptos: PropTypes.func
+  renderCryptos: PropTypes.func,
+  modalOpen: PropTypes.bool,
+  modalInfo: PropTypes.object,
+  hideCryptoModal: PropTypes.func,
+  navigation: PropTypes.object
 }
 
 const mapStateToProps = state => {
   const { activeFilter } = state.filters
-  const { cryptocurrencies } = state.cryptos
+  const { cryptocurrencies, modalOpen, modalInfo } = state.cryptos
 
-  return { cryptocurrencies, activeFilter }
+  return { cryptocurrencies, activeFilter, modalOpen, modalInfo }
 }
 
 export default connect(
   mapStateToProps,
   {
-    renderCryptos
+    renderCryptos,
+    hideCryptoModal
   }
-)(Home)
+)(withNavigation(Home))

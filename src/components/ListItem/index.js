@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { withNavigation } from 'react-navigation'
 import { List as PaperList, TouchableRipple } from 'react-native-paper'
+
+import { showCryptoModal } from './../../actions/CryptosActions'
 
 const ListItem = ({
   navigation,
@@ -12,21 +14,20 @@ const ListItem = ({
   volume,
   marketCap,
   circulatingSupply,
-  maxSupply
+  maxSupply,
+  showCryptoModal
 }) => {
   return (
     <TouchableRipple
       onPress={() => {
-        navigation.navigate('Detail', {
-          info: {
-            title,
-            symbol,
-            price,
-            volume,
-            marketCap,
-            circulatingSupply,
-            maxSupply
-          }
+        showCryptoModal({
+          title,
+          symbol,
+          marketCap,
+          price,
+          volume,
+          circulatingSupply,
+          maxSupply
         })
       }}
       rippleColor='rgba(0, 0, 0, .10)'
@@ -54,7 +55,11 @@ ListItem.propTypes = {
   volume: PropTypes.number,
   marketCap: PropTypes.number,
   circulatingSupply: PropTypes.number,
-  maxSupply: PropTypes.number
+  maxSupply: PropTypes.number,
+  showCryptoModal: PropTypes.func
 }
 
-export default withNavigation(ListItem)
+export default connect(
+  null,
+  { showCryptoModal }
+)(ListItem)

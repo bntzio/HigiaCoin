@@ -7,7 +7,9 @@ import reducers from './src/reducers'
 
 const store = createStore(reducers, {})
 
-console.log('🛍️', store.getState())
+store.subscribe(() => {
+  console.log('🛍️', store.getState())
+})
 
 export default () => {
   return (

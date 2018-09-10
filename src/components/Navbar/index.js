@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Text, View } from 'react-native'
 import {
   Appbar,
   DefaultTheme,
   Provider as PaperProvider
 } from 'react-native-paper'
+
+import { hideCryptoModal } from './../../actions/CryptosActions'
 
 const theme = {
   ...DefaultTheme,
@@ -23,7 +26,8 @@ const Navbar = props => {
     icon,
     backWithText,
     backOnlyIcon,
-    navigation
+    navigation,
+    hideCryptoModal
   } = props
 
   return (
@@ -69,7 +73,10 @@ const Navbar = props => {
           <Appbar.Action
             icon={icon}
             color={color}
-            onPress={() => navigation.navigate('Filters')}
+            onPress={() => {
+              navigation.navigate('Filters')
+              hideCryptoModal()
+            }}
           />
         ) : null}
       </Appbar.Header>
@@ -90,7 +97,11 @@ Navbar.propTypes = {
   icon: PropTypes.string,
   navigation: PropTypes.object,
   backWithText: PropTypes.bool,
-  backOnlyIcon: PropTypes.bool
+  backOnlyIcon: PropTypes.bool,
+  hideCryptoModal: PropTypes.func
 }
 
-export default Navbar
+export default connect(
+  null,
+  { hideCryptoModal }
+)(Navbar)
