@@ -50,28 +50,60 @@ class Home extends React.Component {
     }
   }
 
-  componentDidMount () {
-    const cryptos = this.fetchCryptos()
-    cryptos
-      .then(res => {
-        const cryptocurrencies = this.sortByRank(res.data)
-        this.setState({ cryptocurrencies })
-      })
-      .catch(err => console.log(err))
-  }
+  componentDidUpdate (prevProps) {
+    const { navigation } = this.props
+    const { getParam } = prevProps.navigation
 
-  fetchCryptos () {
-    return fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&sort=rank')
-      .then(response => response.json())
-      .catch(error => new Error(error))
-  }
+    if (getParam('selectedFilter') !== navigation.getParam('selectedFilter')) {
+      const { activeFilter } = this.state
 
-  sortByRank (cryptos) {
-    const cryptoList = []
-    for (let key in cryptos) {
-      cryptoList.push(cryptos[key])
+      return this.fetchAndSortCryptos(activeFilter)
+        .then(cryptocurrencies => this.setState({ cryptocurrencies }))
+        .catch(e => alert(e))
     }
-    return _.orderBy(cryptoList, ['rank'], ['asc'])
+  }
+
+  componentDidMount () {
+    const { activeFilter } = this.state
+
+    return this.fetchAndSortCryptos(activeFilter)
+      .then(cryptocurrencies => this.setState({ cryptocurrencies }))
+      .catch(e => alert(e))
+  }
+
+  async fetchAndSortCryptos (filter) {
+    switch (filter) {
+      case 'Market Cap':
+        const capCoins = await fetch(
+          'https://api.coinmarketcap.com/v2/ticker/?limit=10&sort=rank'
+        )
+          .then(response => response.json())
+          .then(values => values.data)
+          .catch(e => e)
+
+        return _.orderBy(capCoins, ['rank'], ['asc'])
+      case 'Price':
+        const priceCoins = await fetch(
+          'https://api.coinmarketcap.com/v2/ticker'
+        )
+          .then(response => response.json())
+          .then(values => values.data)
+          .catch(e => e)
+
+        return _.orderBy(priceCoins, ['quotes.USD.price'], ['desc']).slice(
+          0,
+          10
+        )
+      case 'Volume':
+        const volumeCoins = await fetch(
+          'https://api.coinmarketcap.com/v2/ticker/?limit=10&sort=volume_24h'
+        )
+          .then(response => response.json())
+          .then(values => values.data)
+          .catch(e => e)
+
+        return _.orderBy(volumeCoins, ['quotes.USD.volume_24h'], ['desc'])
+    }
   }
 
   render () {

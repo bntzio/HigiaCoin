@@ -6,10 +6,12 @@ import { List as PaperList } from 'react-native-paper'
 import ListItem from './../ListItem'
 
 const renderItems = cryptocurrencies => {
-  return cryptocurrencies.map((cryptocurrency, i) => {
-    const { id, name, symbol } = cryptocurrency
-    return <ListItem key={id} ranking={++i} title={name} symbol={symbol} />
-  })
+  if (cryptocurrencies.length > 0) {
+    return cryptocurrencies.map((cryptocurrency, i) => {
+      const { id, name, symbol } = cryptocurrency
+      return <ListItem key={id} ranking={++i} title={name} symbol={symbol} />
+    })
+  }
 }
 
 const List = ({ cryptocurrencies }) => (
