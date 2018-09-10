@@ -10,28 +10,39 @@ import {
 
 import { hideCryptoModal } from './../../actions/CryptosActions'
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#000'
-  }
-}
-
 const Navbar = props => {
   const {
     title,
     subtitle,
-    color,
     icon,
     backWithText,
     backOnlyIcon,
     navigation,
-    hideCryptoModal
+    hideCryptoModal,
+    darkModeEnabled
   } = props
 
+  const theme = () => {
+    if (darkModeEnabled) {
+      return {
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          primary: '#000'
+        }
+      }
+    }
+    return {
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        primary: '#fff'
+      }
+    }
+  }
+
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={theme()}>
       <Appbar.Header>
         {backWithText ? (
           <View
@@ -42,7 +53,7 @@ const Navbar = props => {
             }}
           >
             <Appbar.BackAction
-              color='white'
+              color={darkModeEnabled ? 'white' : ''}
               onPress={() => navigation.goBack()}
             />
             <Text style={{ fontWeight: '500' }}>Back</Text>
@@ -50,7 +61,7 @@ const Navbar = props => {
         ) : null}
         {backOnlyIcon ? (
           <Appbar.BackAction
-            color='white'
+            color={darkModeEnabled ? 'white' : 'black'}
             onPress={() => navigation.goBack()}
           />
         ) : null}
@@ -58,21 +69,21 @@ const Navbar = props => {
           <Appbar.Content
             title={title}
             subtitle={subtitle}
-            color={color}
+            color={darkModeEnabled ? 'white' : 'black'}
             titleStyle={styles.title}
           />
         ) : null}
         {title && !subtitle ? (
           <Appbar.Content
             title={title}
-            color={color}
+            color={darkModeEnabled ? 'white' : 'black'}
             titleStyle={styles.title}
           />
         ) : null}
         {icon ? (
           <Appbar.Action
             icon={icon}
-            color={color}
+            color={darkModeEnabled ? 'white' : 'black'}
             onPress={() => {
               navigation.navigate('Filters')
               hideCryptoModal()
@@ -93,15 +104,21 @@ const styles = {
 Navbar.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  color: PropTypes.string,
   icon: PropTypes.string,
   navigation: PropTypes.object,
   backWithText: PropTypes.bool,
   backOnlyIcon: PropTypes.bool,
-  hideCryptoModal: PropTypes.func
+  hideCryptoModal: PropTypes.func,
+  darkModeEnabled: PropTypes.bool
+}
+
+const mapStateToProps = state => {
+  const { darkModeEnabled } = state.settings
+
+  return { darkModeEnabled }
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   { hideCryptoModal }
 )(Navbar)

@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { DefaultTheme, Drawer, Checkbox } from 'react-native-paper'
-import { View, Linking } from 'react-native'
+import { DefaultTheme, Drawer, Checkbox, Switch } from 'react-native-paper'
+import { View, Text, Linking } from 'react-native'
 
 import Navbar from './../Navbar'
 
 import { selectFilter } from './../../actions/FiltersActions'
+import { toggleDarkMode } from './../../actions/SettingsActions'
 
 const drawerTheme = {
   ...DefaultTheme,
@@ -19,12 +20,7 @@ const drawerTheme = {
 class Filters extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     header: (
-      <Navbar
-        title='Filters & Settings'
-        color='white'
-        backOnlyIcon
-        navigation={navigation}
-      />
+      <Navbar title='Filters & Settings' backOnlyIcon navigation={navigation} />
     )
   })
 
@@ -46,7 +42,7 @@ class Filters extends React.Component {
   }
 
   render () {
-    const { activeFilter } = this.props
+    const { activeFilter, toggleDarkMode, darkModeEnabled } = this.props
 
     return (
       <View
@@ -97,7 +93,8 @@ class Filters extends React.Component {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              paddingLeft: 8
+              paddingLeft: 8,
+              marginBottom: 10
             }}
           >
             <Checkbox
@@ -113,6 +110,29 @@ class Filters extends React.Component {
         </Drawer.Section>
 
         <Drawer.Section
+          title='Settings'
+          theme={drawerTheme}
+          style={{ marginTop: 10 }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingLeft: 15,
+              marginBottom: 10
+            }}
+          >
+            <Switch
+              value={darkModeEnabled}
+              onValueChange={() => toggleDarkMode(darkModeEnabled)}
+            />
+            <Text style={{ marginLeft: 12, flex: 1, color: '#333' }}>
+              Dark Mode
+            </Text>
+          </View>
+        </Drawer.Section>
+
+        <Drawer.Section
           title='Information'
           theme={drawerTheme}
           style={{ marginTop: 10 }}
@@ -121,7 +141,8 @@ class Filters extends React.Component {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              paddingLeft: 8
+              paddingLeft: 8,
+              marginBottom: 10
             }}
           >
             <Drawer.Item
@@ -139,18 +160,22 @@ class Filters extends React.Component {
 Filters.propTypes = {
   navigation: PropTypes.object,
   selectFilter: PropTypes.func,
-  activeFilter: PropTypes.string
+  activeFilter: PropTypes.string,
+  darkModeEnabled: PropTypes.bool,
+  toggleDarkMode: PropTypes.func
 }
 
 const mapStateToProps = state => {
   const { activeFilter } = state.filters
+  const { darkModeEnabled } = state.settings
 
-  return { activeFilter }
+  return { activeFilter, darkModeEnabled }
 }
 
 export default connect(
   mapStateToProps,
   {
-    selectFilter
+    selectFilter,
+    toggleDarkMode
   }
 )(Filters)
