@@ -1,0 +1,16 @@
+fastlane_version '2.53.1'
+opt_out_usage
+
+before_all do
+  ensure_git_branch
+  ensure_git_status_clean
+  git_pull
+end
+
+platform :ios do
+  desc 'Fetch certificates and provisioning profiles'
+  lane :certificates do
+    match(app_identifier: 'com.higiatech.higiacoin', type: 'development', readonly: true)
+    match(app_identifier: 'com.higiatech.higiacoin', type: 'appstore', readonly: true)
+  end
+end
