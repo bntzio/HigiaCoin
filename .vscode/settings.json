@@ -1,4 +1,8 @@
 {
   "editor.formatOnSave": true,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#4bbb8b",
+    "titleBar.inactiveBackground": "#4bbb8b"
+  }
 }
