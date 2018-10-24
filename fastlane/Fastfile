@@ -10,7 +10,7 @@ end
 platform :ios do
   desc 'Fetch certificates and provisioning profiles'
   lane :certificates do
-    match(app_identifier: 'com.higiatech.higiacoin', type: 'development', readonly: true)
-    match(app_identifier: 'com.higiatech.higiacoin', type: 'appstore', readonly: true)
+    match(app_identifier: 'tech.higia.*', type: 'development', readonly: false)
+    match(app_identifier: 'tech.higia.*', type: 'appstore', readonly: false)
   end
 end
