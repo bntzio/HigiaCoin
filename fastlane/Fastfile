@@ -10,8 +10,8 @@ end
 platform :ios do
   desc 'Fetch certificates and provisioning profiles.'
   lane :certificates do
-    match(type: 'appstore')
     match(git_url: 'git@github.com:bntzio/certificates.git', type: 'development')
+    match(git_url: 'git@github.com:bntzio/certificates.git', type: 'appstore')
   end
   desc 'Build the iOS application.'
   private_lane :build do
