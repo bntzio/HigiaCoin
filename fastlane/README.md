@@ -20,7 +20,12 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane ios certificates
 ```
-Fetch certificates and provisioning profiles
+Fetch certificates and provisioning profiles.
+### ios beta
+```
+fastlane ios beta
+```
+Ship to Testflight.
 
 ----
 

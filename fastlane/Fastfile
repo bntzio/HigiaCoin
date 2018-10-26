@@ -10,8 +10,8 @@ end
 platform :ios do
   desc 'Fetch certificates and provisioning profiles.'
   lane :certificates do
-    match(app_identifier: 'io.bntz.higiacoin', type: 'development', readonly: false)
-    match(app_identifier: 'io.bntz.higiacoin', type: 'appstore', readonly: false)
+    match(type: 'appstore')
+    match(git_url: 'git@github.com:bntzio/certificates.git', type: 'development')
   end
   desc 'Build the iOS application.'
   private_lane :build do
