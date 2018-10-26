@@ -8,9 +8,15 @@ before_all do
 end
 
 platform :ios do
-  desc 'Fetch certificates and provisioning profiles'
+  desc 'Fetch certificates and provisioning profiles.'
   lane :certificates do
     match(app_identifier: 'tech.higia.*', type: 'development', readonly: false)
     match(app_identifier: 'tech.higia.*', type: 'appstore', readonly: false)
+  end
+  desc 'Build the iOS application.'
+  private_lane :build do
+    certificates
+    increment_build_number(xcodeproj: './ios/HigiaCoin.xcodeproj')
+    gym(scheme: 'HigiaCoin', project: './ios/HigiaCoin.xcodeproj')
   end
 end
