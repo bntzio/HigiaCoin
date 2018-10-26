@@ -19,4 +19,12 @@ platform :ios do
     increment_build_number(xcodeproj: './ios/HigiaCoin.xcodeproj')
     gym(scheme: 'HigiaCoin', project: './ios/HigiaCoin.xcodeproj')
   end
+  desc 'Ship to Testflight.'
+  lane :beta do
+    build
+    pilot
+    clean_build_artifacts
+    commit_version_bump(message: 'Bump build', xcodeproj: './ios/HigiaCoin.xcodeproj')
+    push_to_git_remote
+  end
 end
