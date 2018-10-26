@@ -1,5 +1,5 @@
 {
-  "name": "HigiaCoin",
+  "name": "higia-coin",
   "description": "Show top 10 cryptocurrencies",
   "private": true,
   "scripts": {
