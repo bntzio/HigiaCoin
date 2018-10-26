@@ -2,8 +2,8 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
-import { Router } from './src/router'
-import reducers from './src/reducers'
+import { Router } from './router'
+import reducers from './reducers'
 
 const store = createStore(reducers, {})
 

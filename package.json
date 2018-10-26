@@ -1,5 +1,5 @@
 {
-  "name": "higia-coin",
+  "name": "HigiaCoin",
   "description": "Show top 10 cryptocurrencies",
   "private": true,
   "scripts": {
@@ -20,19 +20,22 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
-    "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
     "react-native-paper": "^2.0.1",
+    "react-native-vector-icons": "6.0.2",
     "react-navigation": "^2.13.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "styled-components": "^3.4.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "babel-core": "6.0.0",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^23.4.2",
     "babel-plugin-styled-components": "^1.6.3",
-    "babel-preset-react-native-stage-0": "1.0.1",
+    "babel-preset-react-native": "^5.0.2",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "enzyme-react-16-adapter-setup": "^0.1.0",
@@ -47,6 +50,8 @@
     "jest": "23.6.0",
     "jest-enzyme": "^6.0.4",
     "jest-fetch-mock": "^1.6.5",
+    "metro-react-native-babel-preset": "0.48.1",
+    "prop-types": "15.6.2",
     "react-devtools": "^3.3.4",
     "react-dom": "^16.5.0",
     "react-test-renderer": "^16.5.0"
