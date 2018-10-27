@@ -52,6 +52,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B2EC487A69A4460D8B41DB5B /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49754255CB8546A68F7E56D8 /* Feather.ttf */; };
 		C79F0EC413AE4AFBBC07B500 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D268AFEE274B24B789707E /* Ionicons.ttf */; };
+		CC595AC92183E44C006F3E70 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		DE5E002DE9034EF7A1E8211C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0928E442AB241E0A166EBB1 /* MaterialIcons.ttf */; };
 		DF7EB149B5BC4B03A828F6B3 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C94174B6DD8147CAA8D80A91 /* FontAwesome5_Solid.ttf */; };
 		ECD7C25AD24C49759762F8B2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F3CEE992EDA4B9C838B716A /* Zocial.ttf */; };
@@ -1164,6 +1165,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC595AC92183E44C006F3E70 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				2485F5F571F54180939DDD61 /* AntDesign.ttf in Resources */,
@@ -1214,7 +1216,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
