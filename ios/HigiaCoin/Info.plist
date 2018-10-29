@@ -23,7 +23,7 @@
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>4</string>
+    <string>5</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>
@@ -72,6 +72,6 @@
       <string>Zocial.ttf</string>
     </array>
     <key>CodePushDeploymentKey</key>
-    <string>w_gSOPGrVeJg94a5zZitbiTlCc5Q823e8ebc-9097-4643-b9f9-fdb19c57567d</string>
+    <string>gG7LSC97MzN7fv96vqh0MsJ0ROUC823e8ebc-9097-4643-b9f9-fdb19c57567d</string>
   </dict>
 </plist>
