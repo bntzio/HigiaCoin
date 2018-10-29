@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
+import CodePush from 'react-native-code-push'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
@@ -57,6 +58,11 @@ class Home extends React.Component {
   }
 
   componentDidMount () {
+    CodePush.sync({
+      updateDialog: true,
+      installMode: CodePush.InstallMode.IMMEDIATE
+    })
+
     const { activeFilter, renderCryptos, cryptosAreLoading } = this.props
 
     return this.fetchAndSortCryptos(activeFilter)
