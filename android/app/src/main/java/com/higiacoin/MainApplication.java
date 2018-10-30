@@ -32,7 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new VectorIconsPackage(),
-            new CodePush(null, getApplicationContext(), BuildConfig.DEBUG)
+            new CodePush("G0Ob5GgxSCXFQgO9CYMyQM-YvP1e823e8ebc-9097-4643-b9f9-fdb19c57567d", getApplicationContext(), BuildConfig.DEBUG)
       );
     }
 
