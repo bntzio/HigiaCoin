@@ -1,5 +1,8 @@
 fastlane_version '2.53.1'
 opt_out_usage
+apple_id 'enriquebenitezjr@gmail.com'
+app_identifier 'io.bntz.higiacoin'
+itc_team_name 'Enrique Benitez'
 
 before_all do
   ensure_git_branch
